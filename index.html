@@ -4,65 +4,187 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-  <title>التقوى للطباعة الحرارية وحفر الليزر</title>
+  <title>التقوى ليزر & طباعة | بوابة النيون</title>
+  <!-- Tailwind CSS & FontAwesome -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { 'cairo': ['Cairo', 'sans-serif'] },
+          colors: {
+            'h-blue': '#00d4ff', 'h-purple': '#cc00ff', 'h-pink': '#ff0055', 'h-cyan': '#00ffcc'
+          },
+          animation: {
+            'holo': 'holo 5s ease-out infinite alternate',
+            'neon-pulse': 'neon-pulse 1.5s ease-in-out infinite alternate'
+          },
+          keyframes: {
+            holo: {
+              '0%': { 'background-position': '0% 50%' },
+              '100%': { 'background-position': '100% 50%' }
+            },
+            'neon-pulse': {
+              '0%': { 'box-shadow': '0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 15px #00d4ff', 'border-color': '#fff' },
+              '100%': { 'box-shadow': '0 0 20px #cc00ff, 0 0 30px #cc00ff, 0 0 40px #cc00ff', 'border-color': '#00d4ff' }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  
   <style>
     body { font-family: 'Cairo', sans-serif; }
+    
+    /* خلفية Particles (تأثير فضائي) */
+    #particles-js {
+      position: fixed; width: 100%; height: 100%; top: 0; left: 0;
+      background: linear-gradient(135deg, #01010e 0%, #0c001c 50%, #150033 100%);
+      z-index: -1;
+    }
+    
+    /* الكارت الهولوغرافي الزجاجي (Glassmorphism + Holographic gradient) */
+    .holo-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 50%, rgba(255, 255, 255, 0.05) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 40px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.7);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* اللمعان الهولوغرافي فوق الكارت */
+    .holo-card::after {
+      content: ''; position: absolute; top: -150%; left: -150%; width: 300%; height: 300%;
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.15) 0%, rgba(204, 0, 255, 0.1) 40%, rgba(255, 0, 85, 0.15) 60%, rgba(0, 255, 204, 0.1) 80%);
+      opacity: 0; transition: opacity 0.5s ease; pointer-events: none; z-index: 1;
+    }
+    
+    .holo-card:hover::after { opacity: 1; top: -100%; left: -100%; }
+    
+    /* أزرار النيون المشعة */
+    .neon-link {
+      transition: all 0.3s ease-out;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      position: relative; overflow: hidden;
+    }
+    
+    .neon-link:hover {
+      border-color: #fff;
+      transform: translateY(-5px) scale(1.03);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    
+    .neon-link i { transition: all 0.3s ease; }
+    .neon-link:hover i { transform: scale(1.2); }
+    
+    /* تخصيص الألوان لكل زر */
+    .link-wa:hover { box-shadow: 0 0 15px #00ff88, 0 0 30px rgba(0, 255, 136, 0.6); } /* Emerald */
+    .link-fb:hover { box-shadow: 0 0 15px #0099ff, 0 0 30px rgba(0, 153, 255, 0.6); } /* Sky */
+    .link-tt:hover { box-shadow: 0 0 15px #ffcc00, 0 0 30px rgba(255, 204, 0, 0.6); } /* Amber */
+    
+    /* تأثير الليزر على الحدود */
+    .laser-border {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      border-radius: 40px; pointer-events: none;
+      box-shadow: inset 0 0 10px rgba(0, 212, 255, 0.1), inset 0 0 20px rgba(204, 0, 255, 0.1);
+    }
   </style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen flex items-center justify-center p-4">
+<body class="flex items-center justify-center min-h-screen p-4 overflow-hidden relative selection:bg-h-purple selection:text-white">
 
-  <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl flex flex-col items-center text-center">
+  <!-- خلفية Particles (تأثير الجسيمات الفضائية المتحركة) -->
+  <div id="particles-js"></div>
+
+  <!-- الكارت الهولوغرافي الخرافي الرئيسي -->
+  <div class="holo-card w-full max-w-lg p-10 md:p-14 text-center z-10 scale-90 sm:scale-100 origin-center transition-all duration-500 ease-out">
     
-    <!-- الشعار / الأيقونة -->
-    <div class="w-20 h-20 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center mb-4 text-amber-400 text-3xl shadow-lg shadow-amber-500/10">
-      <i class="fa-solid fa-gem"></i>
+    <!-- تأثير حدود الليزر -->
+    <div class="laser-border"></div>
+    
+    <!-- الشعار / الأيقونة الهولوغرافية -->
+    <div class="relative group mb-8 flex justify-center">
+      <div class="w-28 h-28 rounded-3xl bg-black flex items-center justify-center text-5xl shadow-[0_0_20px_#00d4ff,0_0_40px_#cc00ff] animate-neon-pulse group-hover:animate-none">
+        <i class="fa-solid fa-gem text-white group-hover:text-h-cyan transition"></i>
+      </div>
+      <div class="absolute inset-0 w-28 h-28 mx-auto rounded-3xl bg-gradient-to-tr from-h-blue to-h-purple opacity-20 group-hover:opacity-60 blur-2xl transition-opacity"></div>
     </div>
 
-    <h1 class="text-2xl font-black text-white mb-1">التقوى للطباعة والليزر</h1>
-    <p class="text-amber-400 text-sm font-semibold mb-3">طباعة حرارية • حفر ليزر مخصص • هدايا ودعاية</p>
-    <p class="text-slate-400 text-xs sm:text-sm mb-6 leading-relaxed">
-      تواصل معنا مباشرة عبر الحسابات والأرقام التالية لطلب خدمات الطباعة والتصميم:
+    <!-- العنوان (نص خرافي بلمعة معدنية) -->
+    <h1 class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-slate-300 to-slate-600 mb-2 leading-tight tracking-tight shadow-text">التقوى <span class="text-h-blue">ليزر</span> & <span class="text-h-purple">طباعة</span></h1>
+    
+    <p class="text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-h-cyan via-h-blue to-h-purple animate-holo bg-[length:200%_auto] mb-5 tracking-wide">طباعة حرارية • حفر ليزر مخصص • هدايا ودعاية</p>
+    
+    <p class="text-slate-200 text-sm md:text-base mb-10 leading-relaxed font-semibold opacity-80">
+      استكشف إمكانياتك! تواصل معنا مباشرة عبر منصاتنا التالية لطلب خدمات الطباعة والتصميم الاحترافية:
     </p>
 
-    <!-- الروابط -->
-    <div class="w-full space-y-3">
+    <!-- قائمة الروابط (أزرار النيون) -->
+    <div class="w-full space-y-6">
       
-      <!-- واتساب (استبدل الرقم برقمك بصيغة دولية مثلاً 201xxxxxxxxx) -->
-      <a href="https://wa.me/201000000000" target="_blank" class="flex items-center justify-between p-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-emerald-500 rounded-2xl transition group">
-        <div class="flex items-center gap-3">
-          <i class="fa-brands fa-whatsapp text-2xl text-emerald-400"></i>
-          <span class="font-bold text-sm text-slate-200 group-hover:text-white">واتساب للطلبات والاستفسار</span>
+      <!-- واتساب (استبدل الرقم بالكامل برقمك بصيغة دولية مثلاً 201xxxxxxxxx) -->
+      <a href="https://wa.me/201000000000" target="_blank" class="neon-link link-wa flex items-center justify-between p-5 rounded-full bg-black/60 shadow-lg group">
+        <div class="flex items-center gap-5">
+          <i class="fa-brands fa-whatsapp text-3xl text-emerald-400"></i>
+          <span class="font-extrabold text-lg md:text-xl text-white tracking-wide">واتساب للطلبات</span>
         </div>
-        <i class="fa-solid fa-chevron-left text-xs text-slate-500 group-hover:text-emerald-400"></i>
+        <i class="fa-solid fa-arrow-left text-xl text-emerald-400 group-hover:text-white"></i>
       </a>
 
       <!-- فيسبوك -->
-      <a href="https://facebook.com" target="_blank" class="flex items-center justify-between p-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-blue-500 rounded-2xl transition group">
-        <div class="flex items-center gap-3">
-          <i class="fa-brands fa-facebook text-2xl text-blue-500"></i>
-          <span class="font-bold text-sm text-slate-200 group-hover:text-white">صفحة الفيسبوك</span>
+      <a href="https://facebook.com/YOUR_FB_PAGE_URL" target="_blank" class="neon-link link-fb flex items-center justify-between p-5 rounded-full bg-black/60 shadow-lg group">
+        <div class="flex items-center gap-5">
+          <i class="fa-brands fa-facebook text-3xl text-sky-400"></i>
+          <span class="font-extrabold text-lg md:text-xl text-white tracking-wide">صفحة الفيسبوك</span>
         </div>
-        <i class="fa-solid fa-chevron-left text-xs text-slate-500 group-hover:text-blue-400"></i>
+        <i class="fa-solid fa-arrow-left text-xl text-sky-400 group-hover:text-white"></i>
       </a>
 
-      <!-- اتصال هاتفي مباشر -->
-      <a href="tel:01000000000" class="flex items-center justify-between p-3.5 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500 rounded-2xl transition group">
-        <div class="flex items-center gap-3">
-          <i class="fa-solid fa-phone text-xl text-amber-400"></i>
-          <span class="font-bold text-sm text-slate-200 group-hover:text-white">اتصال هاتفي مباشر</span>
+      <!-- اتصال هاتفى -->
+      <a href="tel:01000000000" class="neon-link link-tt flex items-center justify-between p-5 rounded-full bg-black/60 shadow-lg group">
+        <div class="flex items-center gap-5">
+          <i class="fa-solid fa-phone-volume text-3xl text-amber-400"></i>
+          <span class="font-extrabold text-lg md:text-xl text-white tracking-wide">اتصال هاتفي مباشر</span>
         </div>
-        <i class="fa-solid fa-chevron-left text-xs text-slate-500 group-hover:text-amber-400"></i>
+        <i class="fa-solid fa-arrow-left text-xl text-amber-400 group-hover:text-white"></i>
       </a>
 
     </div>
 
-    <footer class="mt-8 text-xs text-slate-500">
-      جميع الحقوق محفوظة &copy; التقوى
+    <!-- تذييل الصفحة -->
+    <footer class="mt-14 text-sm text-slate-500 font-bold tracking-wider">
+      جميع الحقوق محفوظة &copy; <span class="text-h-purple">التقوى</span>
     </footer>
   </div>
 
+  <!-- سكربت جافاسكربت لتفعيل الجسيمات المتحركة -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    /* تكوين الجسيمات particles.js */
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: ['#cc00ff', '#00d4ff', '#ff0055'] },
+        shape: { type: 'circle', stroke: { width: 0, color: '#000000' } },
+        opacity: { value: 0.2, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.1, sync: false } },
+        size: { value: 4, random: true, anim: { enable: true, speed: 3, size_min: 0.1, sync: false } },
+        line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.05, width: 1 },
+        move: { enable: true, speed: 2, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false, attract: { enable: true, rotateX: 600, rotateY: 1200 } }
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: { onhover: { enable: true, mode: 'grab' }, onclick: { enable: true, mode: 'push' }, resize: true },
+        modes: { grab: { distance: 140, line_linked: { opacity: 0.3 } }, push: { particles_nb: 4 } }
+      },
+      retina_detect: true
+    });
+  </script>
 </body>
 </html>
